@@ -1,0 +1,214 @@
+{
+	"ace": {
+		"settings": {
+			"selectionStyle": {
+				"Name": "Style de Séléction",
+				"Hint": "        "
+			},
+			"highlightActiveLine": {
+				"Name": "surligner la ligne active",
+				"Hint": "        "
+			},
+			"highlightSelectedWord": {
+				"Name": "Surligner le mot actif",
+				"Hint": "        "
+			},
+			"readOnly": {
+				"Name": "Lecture Seulement",
+				"Hint": "        "
+			},
+			"cursorStyle": {
+				"Name": "Style de curseur",
+				"Hint": "        "
+			},
+			"mergeUndoDeltas": {
+				"Name": "Fusionner les deltas d'annulation",
+				"Hint": "        "
+			},
+			"behavioursEnabled": {
+				"Name": "Activé les comportements",
+				"Hint": "        "
+			},
+			"wrapBehavioursEnabled": {
+				"Name": "Activé les comportements de retour à la ligne",
+				"Hint": "        "
+			},
+			"autoScrollEditorIntoView": {
+				"Name": "Automtiquement défilé l'éditeur jusqu'en vue",
+				"Hint": "        "
+			},
+			"displayIndentGuides": {
+				"Name": "Afficher les guides de retrait",
+				"Hint": "        "
+			},
+			"navigateWithinSoftTabs": {
+				"Name": "Navigué dans les tabulations doux",
+				"Hint": "        "
+			},
+			"enableMultiselect": {
+				"Name": "Activé la multiselection",
+				"Hint": "        "
+			},
+			"highlightGutterLine": {
+				"Name": "Surligner la ligne de Gouttière",
+				"Hint": "        "
+			},
+			"animatedScroll": {
+				"Name": "Défilement animé",
+				"Hint": "        "
+			},
+			"showInvisibles": {
+				"Name": "Afficher les caractères invisibles",
+				"Hint": "        "
+			},
+			"showPrintMargin": {
+				"Name": "Afficher la marge d'impression",
+				"Hint": "        "
+			},
+			"printMarginColumn": {
+				"Name": "Colonne de la marge d'impression",
+				"Hint": "        "
+			},
+			"printMargin": {
+				"Name": "Marge d'impression",
+				"Hint": "        "
+			},
+			"fadeFoldWidgets": {
+				"Name": "Effacé les widgets de pliage en survolant",
+				"Hint": "        "
+			},
+			"showFoldWidgets": {
+				"Name": "Toujour montré les widgets de pliage",
+				"Hint": "        "
+			},
+			"showLineNumbers": {
+				"Name": "Montrer les numéros de ligne",
+				"Hint": "        "
+			},
+			"showGutter": {
+				"Name": "Montrer la Gouttière",
+				"Hint": "        "
+			},
+			"fontSize": {
+				"Name": "Taille de la police",
+				"Hint": "        "
+			},
+			"fontFamily": {
+				"Name": "Famille de polices",
+				"Hint": "        "
+			},
+			"scrollPastEnd": {
+				"Name": "Défilement au-delà de la fin",
+				"Hint": "        "
+			},
+			"fixedWidthGutter": {
+				"Name": "Gouttière à largeur fixe",
+				"Hint": "        "
+			},
+			"theme": {
+				"Name": "Thème",
+				"Hint": "        "
+			},
+			"newLineMode": {
+				"Name": "Mode de nouvelle ligne",
+				"Hint": "        "
+			},
+			"useWorker": {
+				"Name": "Utiliser le travailleur",
+				"Hint": "        "
+			},
+			"tabSize": {
+				"Name": "Taille des tabulations",
+				"Hint": "        "
+			},
+			"wrap": {
+				"Name": "Retour à la ligne",
+				"Hint": "        "
+			},
+			"foldStyle": {
+				"Name": "Style de pliage",
+				"Hint": "        "
+			},
+			"mode": {
+				"Name": "Mode",
+				"Hint": "        "
+			},
+			"enableBasicAutocompletion": {
+				"Name": "Activer l'autocomplétion de base",
+				"Hint": "        "
+			},
+			"enableSnippets": {
+				"Name": "Activer les snippets",
+				"Hint": "        "
+			},
+			"enableLiveAutocompletion": {
+				"Name": "Activer les snippets",
+				"Hint": "        "
+			},
+			"useElasticTabstops": {
+				"Name": "Utiliser des tabulations elastique",
+				"Hint": "        "
+			},
+			"KeyboardHandler": {
+				"Name": "Gestionnaire de clavier",
+				"Hint": "        "
+			},
+			"hScrollBarAlwaysVisible": {
+				"Name": "Barre de défilement horizontale toujours visible",
+				"Hint": "        "
+			},
+			"vScrollBarAlwaysVisible": {
+				"Name": "Barre de défilement verticale toujours visible",
+				"Hint": "        "
+			},
+			"maxLines": {
+				"Name": "Nombre maximal de lignes",
+				"Hint": "        "
+			},
+			"minLines": {
+				"Name": "Nombre minimale de lignes",
+				"Hint": "        "
+			},
+			"maxPixelHeight": {
+				"Name": "Hauteur maximale en pixel",
+				"Hint": "        "
+			},
+			"scrollSpeed": {
+				"Name": "Vitesse de défilement",
+				"Hint": "        "
+			},
+			"dragDelay": {
+				"Name": "Délai pour Glisser-déposer",
+				"Hint": "        "
+			},
+			"dragEnabled": {
+				"Name": "Activé le Glisser-déposer",
+				"Hint": "        "
+			},
+			"focusTimeout": {
+				"Name": "Délai de mise au point",
+				"Hint": "        "
+			},
+			"tooltipFollowsMouse": {
+				"Name": "L'info-bulle suit la souris",
+				"Hint": "        "
+			},
+			"firstLineNumber": {
+				"Name": "Numéro de la première ligne",
+				"Hint": "        "
+			},
+			"overwrite": {
+				"Name": "Écraser",
+				"Hint": "        "
+			},
+			"useSoftTabs": {
+				"Name": "Utilisez des tabulations molles",
+				"Hint": "        "
+			},
+			"indentedSoftWrap": {
+				"Name": "Indentation molle des retours à la ligne",
+				"Hint": "        "
+			}
+		}
+	}
+}

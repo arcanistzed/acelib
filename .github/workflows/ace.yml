@@ -1,0 +1,36 @@
+# Update Ace editor with newest release
+name: update_ace
+
+  # Runs every Monday
+on:
+  schedule:
+    - cron: "0 0 * * MON"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: update_ace
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Clone the ace repo
+        run: git clone https://github.com/ajaxorg/ace-builds.git
+        
+      - name: Copy and rename files
+        run: |
+          rm -rf scripts/library/
+          mv ace-builds/src-min-noconflict/ scripts/
+          cd scripts
+          mv src-min-noconflict library
+          
+      - name: Remove ace repo
+        run: rm -rf ace-builds/
+        
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          message: "Update ace"

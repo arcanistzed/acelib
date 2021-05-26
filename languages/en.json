@@ -1,3 +1,158 @@
 {
-    "MODULE.hello": "hello"
+	"ace": {
+		"settings": {
+			"selectionStyle": {
+				"Name": "Selection Style",
+				"Hint": "        "
+			},
+			"highlightActiveLine": {
+				"Name": "Highlight Active Line",
+				"Hint": "        "
+			},
+			"highlightSelectedWord": {
+				"Name": "Highlight Selected Word",
+				"Hint": "        "
+			},
+			"cursorStyle": {
+				"Name": "Cursor Style",
+				"Hint": "        "
+			},
+			"showInvisibles": {
+				"Name": "Show Invisibles",
+				"Hint": "Show tabs and spaces"
+			},
+			"displayIndentGuides": {
+				"Name": "Display Indent Guides",
+				"Hint": "Shows indents. Enabling this will enable Show Invisibles."
+			},
+			"navigateWithinSoftTabs": {
+				"Name": "Navigate Within Soft Tabs",
+				"Hint": "        "
+			},
+			"enableMultiselect": {
+				"Name": "Enable Multiselect",
+				"Hint": ""
+			},
+			"highlightGutterLine": {
+				"Name": "Highlight Gutter Line",
+				"Hint": "Whether or not you want to highlight the current line in the Gutter"
+			},
+			"showPrintMargin": {
+				"Name": "Show Print Margin",
+				"Hint": "Do you want a print margin?"
+			},
+			"printMarginColumn": {
+				"Name": "Print Margin Column",
+				"Hint": "How many columns of text should be included in the print margin?"
+			},
+			"showFoldWidgets": {
+				"Name": "Show Fold Widgets",
+				"Hint": "These little triangular widgets in the gutter let you fold elements"
+			},
+			"fadeFoldWidgets": {
+				"Name": "Fade Fold Widgets",
+				"Hint": "Should the widgets disappear when you don't have your mouse over the Gutter?"
+			},
+			"showLineNumbers": {
+				"Name": "Show Line Numbers",
+				"Hint": "        "
+			},
+			"showGutter": {
+				"Name": "Show Gutter",
+				"Hint": "This is the sidebar on the left side of the editor that usually has the line numbers in it"
+			},
+			"fontSize": {
+				"Name": "Font Size",
+				"Hint": "        "
+			},
+			"fontFamily": {
+				"Name": "Font Family",
+				"Hint": "        "
+			},
+			"scrollPastEnd": {
+				"Name": "Scroll Past End",
+				"Hint": "        "
+			},
+			"theme": {
+				"Name": "Theme",
+				"Hint": "Favorite color?"
+			},
+			"newLineMode": {
+				"Name": "New Line Mode",
+				"Hint": ""
+			},
+			"tabSize": {
+				"Name": "Tab Size",
+				"Hint": ""
+			},
+			"wrap": {
+				"Name": "Wrap Text",
+				"Hint": ""
+			},
+			"foldStyle": {
+				"Name": "Fold Style",
+				"Hint": "        "
+			},
+			"mode": {
+				"Name": "Mode",
+				"Hint": "What are you editing?"
+			},
+			"enableBasicAutocompletion": {
+				"Name": "Enable Basic Autocompletion",
+				"Hint": ""
+			},
+			"enableSnippets": {
+				"Name": "Enable Snippets",
+				"Hint": ""
+			},
+			"enableLiveAutocompletion": {
+				"Name": "Enable Live Autocompletion",
+				"Hint": ""
+			},
+			"useElasticTabstops": {
+				"Name": "Use Elastic Tabstops",
+				"Hint": "        "
+			},
+			"KeyboardHandler": {
+				"Name": "Keyboard Handler",
+				"Hint": "Choose a set of keybindings"
+			},
+			"hScrollBarAlwaysVisible": {
+				"Name": "Horizontal Scroll Bar Always Visible",
+				"Hint": ""
+			},
+			"vScrollBarAlwaysVisible": {
+				"Name": "Vertical Scroll Bar Always Visible",
+				"Hint": ""
+			},
+			"scrollSpeed": {
+				"Name": "Scroll Speed",
+				"Hint": ""
+			},
+			"dragDelay": {
+				"Name": "Drag-and-drop Delay",
+				"Hint": ""
+			},
+			"dragEnabled": {
+				"Name": "Enable Drag-and-drop",
+				"Hint": ""
+			},
+			"firstLineNumber": {
+				"Name": "First Line Number",
+				"Hint": ""
+			},
+			"overwrite": {
+				"Name": "Overwrite",
+				"Hint": "Overwrite text instead of inputting normally."
+			},
+			"useSoftTabs": {
+				"Name": "Use Soft Tabs",
+				"Hint": "        "
+			},
+			"indentedSoftWrap": {
+				"Name": "Indented Soft Wrap",
+				"Hint": "        "
+			}
+		}
+	}
 }
