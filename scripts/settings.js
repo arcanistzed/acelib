@@ -50,11 +50,11 @@ Hooks.once("init", function () {
 
 	/**
 	 * Warn when setting ace
-	 */
+	 
 	Object.defineProperty(globalThis, 'ace', {
 		set: () => { throw `ace: Not allowed to re-assign the global instance of ace` },
 		configurable: false
-	});
+	});*/
 
 	register("selectionStyle", String, { "line": "line", "text": "text" }, "text");
 	register("highlightActiveLine", Boolean, undefined, false);
@@ -88,7 +88,7 @@ Hooks.once("init", function () {
 	register("tabSize", Number, undefined, 4);
 	register("wrap", Boolean, undefined, true);
 	register("foldStyle", String, { "markbegin": "markbegin", "markbeginend": "markbeginend", "manual": "manual" }, "markbegin");
-	register("mode", String, { "ace/mode/html": "html", "ace/mode/text": "text" }, "ace/mode/html");
+	register("mode", String, { "ace/mode/html": "html", "ace/mode/text": "plain text", "ace/mode/json": "json", "ace/mode/css": "css", "ace/mode/js": "javascript" }, "ace/mode/text");
 	register("enableBasicAutocompletion", Boolean, undefined, true);
 	register("enableSnippets", Boolean, undefined, true);
 	register("enableLiveAutocompletion", Boolean, undefined, true);
