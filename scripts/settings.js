@@ -48,14 +48,6 @@ Hooks.once("init", function () {
 		configurable: false
 	});
 
-	/**
-	 * Warn when setting ace
-	 
-	Object.defineProperty(globalThis, 'ace', {
-		set: () => { throw `ace: Not allowed to re-assign the global instance of ace` },
-		configurable: false
-	});*/
-
 	register("selectionStyle", String, { "line": "line", "text": "text" }, "text");
 	register("highlightActiveLine", Boolean, undefined, false);
 	register("highlightSelectedWord", Boolean, undefined, true);
