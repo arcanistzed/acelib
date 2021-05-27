@@ -1,11 +1,8 @@
 /** 
  * Defines a set of configuartion options for Ace editors
  */
-
-var aceConfig = {};
-
 Hooks.once("init", function () {
-	const namespace = "ace";
+	const namespace = "acelib";
 	const settings = [];
 
 	/**
@@ -41,16 +38,13 @@ Hooks.once("init", function () {
 	 * Add a getter to Ace that returns an object containing all the settings
 	 * from the settings array. These can be passed directly to the Ace initialization.
 	 */
-	Object.defineProperty(aceConfig, "userSettings", {
+	Object.defineProperty(ace, "userSettings", {
 		get: () => {
 			return Object.fromEntries(
 				settings.map(name => [name, game.settings.get(namespace, name)])
 			)
 		}
 	});
-
-	// Make accessible by other modules
-	game.modules.get("acelib").aceConfig = aceConfig;
 
 	register("selectionStyle", String, { "line": "line", "text": "text" }, "text");
 	register("highlightActiveLine", Boolean, undefined, false);
