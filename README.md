@@ -37,7 +37,7 @@ editor.setValue("initial value");
 Get the editor's contents
 
 ```js
-var output = editor.getValue();
+editor.getValue();
 ```
 
 ## Using Ace
