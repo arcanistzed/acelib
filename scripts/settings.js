@@ -43,7 +43,17 @@ Hooks.once("init", function () {
 			return Object.fromEntries(
 				settings.map(name => [name, game.settings.get(namespace, name)])
 			)
-		}
+		},
+		set: () => { throw `ace: Not allowed to re-assign the global instance of ace.userSettings` },
+		configurable: false
+	});
+
+	/**
+	 * Warn when setting ace
+	 */
+	Object.defineProperty(globalThis, 'ace', {
+		set: () => { throw `ace: Not allowed to re-assign the global instance of ace` },
+		configurable: false
 	});
 
 	register("selectionStyle", String, { "line": "line", "text": "text" }, "text");
