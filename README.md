@@ -1,53 +1,65 @@
-![](https://img.shields.io/badge/Foundry-v0.7.9-informational)
-<!--- Downloads @ Latest Badge -->
-<!--- replace <user>/<repo> with your username/repository -->
-<!--- ![Latest Release Download Count](https://img.shields.io/github/downloads/<user>/<repo>/latest/module.zip) -->
+# Ace library
 
-<!--- Forge Bazaar Install % Badge -->
-<!--- replace <your-module-name> with the `name` in your manifest -->
-<!--- ![Forge Installs](https://img.shields.io/badge/dynamic/json?label=Forge%20Installs&query=package.installs&suffix=%25&url=https%3A%2F%2Fforge-vtt.com%2Fapi%2Fbazaar%2Fpackage%2F<your-module-name>&colorB=4aa94a) -->
+![](https://img.shields.io/github/v/tag/arcanistzed/acelib)
 
+A library module for using the [Ace editor](https://ace.c9.io/) in Foundry VTT.
 
-# How to use this Template to create a versioned Release
+This library is currently being used by
 
-1. Open your repository's releases page.
+- [Journal Code Editor](https://github.com/arcanistzed/jce)
 
-![Where to click to open repository releases.](https://user-images.githubusercontent.com/7644614/93409301-9fd25080-f864-11ea-9e0c-bdd09e4418e4.png)
+Submit a PR to add your module to the list.
 
-2. Click "Draft a new release"
+# Installation
 
-![Draft a new release button.](https://user-images.githubusercontent.com/7644614/93409364-c1333c80-f864-11ea-89f1-abfcb18a8d9f.png)
+In the setup screen, use the URL https://raw.githubusercontent.com/arcanistzed/acelib/main/module.json to install the module.
 
-3. Fill out the release version as the tag name.
+# Usage
 
-## <span color="red">Do not prefix your tag name with a `v`.</span>
+To easily add an Ace editor, you can create a `<div>` and use `ace.edit` to initialize.
 
-If you want to add details at this stage you can, or you can always come back later and edit them.
+```js
+editor = ace.edit(document.getElementById("the-id-of-the-div"));
+```
 
-![Release Creation Form](https://user-images.githubusercontent.com/7644614/93409543-225b1000-f865-11ea-9a19-f1906a724421.png)
+This will set the Ace options to the ones that the user has configured in module settings.
 
-4. Hit submit.
+```js
+editor.setOptions(ace.userSettings);
+```
 
-5. Wait a few minutes.
+Set the editor's contents
 
-A Github Action will run to populate the `module.json` and `module.zip` with the correct urls that you can then use to distribute this release. You can check on its status in the "Actions" tab.
+```js
+editor.setValue("initial value");
+```
 
-![Actions Tab](https://user-images.githubusercontent.com/7644614/93409820-c1800780-f865-11ea-8c6b-c3792e35e0c8.png)
+Get the editor's contents
 
-6. Grab the module.json url from the release's details page.
+```js
+var output = editor.getValue();
+```
 
-![image](https://user-images.githubusercontent.com/7644614/93409960-10c63800-f866-11ea-83f6-270cc5d10b71.png)
+## Using Ace
 
-This `module.json` will only ever point at this release's `module.zip`, making it useful for sharing a specific version for compatibility purposes.
+Press Ctrl+Alt+h or Cmd+Alt+h to view a list of all the keyboard shortcuts available. You can access the command palette by pressing F1 while focusing on the editor.
 
-7. You can use the url `https://github.com/<user>/<repo>/releases/latest/download/module.json` to refer to the manifest.
+# Contributing
 
-This is the url you want to use to install the module typically, as it will get updated automatically.
+Contributions are welcome via pull request.
 
+# License
 
-# FoundryVTT Module
+This package is under an [MIT license](LICENSE)
 
-Does something, probably
+# Bugs
 
-## Changelog
+You can submit bugs via [Github Issues](https://github.com/arcanistzed/acelib/issues/new/choose).
 
+# License
+
+This package is under an [MIT license](LICENSE) while Ace is under a [BSD license](https://github.com/ajaxorg/ace/blob/master/LICENSE).
+
+# Contact me
+
+I can be reached on discord [@arcanist#4317](https://discord.com/users/455117777745870860) or by [email](mailto:arcanistzed@gmail.com?subject=Volume Control module for Foundry VTT).
