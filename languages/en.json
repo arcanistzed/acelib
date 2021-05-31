@@ -31,7 +31,7 @@
 			},
 			"enableMultiselect": {
 				"Name": "Enable Multiselect",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"highlightGutterLine": {
 				"Name": "Highlight Gutter Line",
@@ -79,15 +79,15 @@
 			},
 			"newLineMode": {
 				"Name": "New Line Mode",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"tabSize": {
 				"Name": "Tab Size",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"wrap": {
 				"Name": "Wrap Text",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"foldStyle": {
 				"Name": "Fold Style",
@@ -99,15 +99,15 @@
 			},
 			"enableBasicAutocompletion": {
 				"Name": "Enable Basic Autocompletion",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"enableSnippets": {
 				"Name": "Enable Snippets",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"enableLiveAutocompletion": {
 				"Name": "Enable Live Autocompletion",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"useElasticTabstops": {
 				"Name": "Use Elastic Tabstops",
@@ -119,27 +119,27 @@
 			},
 			"hScrollBarAlwaysVisible": {
 				"Name": "Horizontal Scroll Bar Always Visible",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"vScrollBarAlwaysVisible": {
 				"Name": "Vertical Scroll Bar Always Visible",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"scrollSpeed": {
 				"Name": "Scroll Speed",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"dragDelay": {
 				"Name": "Drag-and-drop Delay",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"dragEnabled": {
 				"Name": "Enable Drag-and-drop",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"firstLineNumber": {
 				"Name": "First Line Number",
-				"Hint": ""
+				"Hint": "        "
 			},
 			"overwrite": {
 				"Name": "Overwrite",
