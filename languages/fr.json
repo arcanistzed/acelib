@@ -149,7 +149,7 @@
 				"Name": "Utiliser des tabulations elastique",
 				"Hint": "        "
 			},
-			"KeyboardHandler": {
+			"keyboardHandler": {
 				"Name": "Gestionnaire de clavier",
 				"Hint": "        "
 			},
