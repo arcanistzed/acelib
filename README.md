@@ -6,7 +6,10 @@ A library module for using the [Ace editor](https://ace.c9.io/) in Foundry VTT.
 
 This library is currently being used by
 
-- [Journal Code Editor](https://github.com/arcanistzed/jce)
+- [Journal Code Editor](https://foundryvtt.com/packages/jce)
+- [AceEditorVTT](https://foundryvtt.com/packages/AceEditorVTT)
+- [Not Enough NPCs: A 5e NPC Generator](https://foundryvtt.com/packages/npcgen)
+- [Stream Utils](https://foundryvtt.com/packages/0streamutils)
 
 Submit a PR to add your module to the list.
 
