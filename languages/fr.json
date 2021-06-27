@@ -199,11 +199,11 @@
 			},
 			"overwrite": {
 				"Name": "Écraser",
-				"Hint": "        "
+				"Hint": "Remplacé le text existant en écrivant, au lieu d'ajouter du texte."
 			},
 			"useSoftTabs": {
 				"Name": "Utilisez des tabulations molles",
-				"Hint": "        "
+				"Hint": "Transformé les caractères de tabulation en espaces."
 			},
 			"indentedSoftWrap": {
 				"Name": "Indentation molle des retours à la ligne",

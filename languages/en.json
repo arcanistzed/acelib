@@ -147,7 +147,7 @@
 			},
 			"useSoftTabs": {
 				"Name": "Use Soft Tabs",
-				"Hint": "        "
+				"Hint": "Transform tab characters into spaces"
 			},
 			"indentedSoftWrap": {
 				"Name": "Indented Soft Wrap",
