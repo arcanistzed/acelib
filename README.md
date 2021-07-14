@@ -22,7 +22,7 @@ In the setup screen, use the URL https://raw.githubusercontent.com/arcanistzed/a
 To easily add an Ace editor, you can create a `<div>` and use `ace.edit` to initialize. You can create multiple editors at once with this method.
 
 ```js
-editor = ace.edit(document.getElementById("the-id-of-the-div"));
+let editor = ace.edit("the-id-of-the-div");
 ```
 
 This will set the Ace options to the ones that the user has configured in module settings.
