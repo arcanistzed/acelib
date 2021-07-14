@@ -100,16 +100,4 @@ Hooks.once("init", function () {
 	register("overwrite", Boolean, undefined, false);
 	register("useSoftTabs", Boolean, undefined, true);
 	register("indentedSoftWrap", Boolean, undefined, true);
-
-	// show keyboard shortcuts
-	editor.commands.addCommand({
-		name: "showKeyboardShortcuts",
-		bindKey: { win: "Ctrl-Alt-h", mac: "Command-Alt-h" },
-		exec: editor => {
-			ace.config.loadModule("ace/ext/keybinding_menu", module => {
-				module.init(editor);
-				editor.showKeyboardShortcuts()
-			})
-		}
-	});
 });
