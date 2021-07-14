@@ -11,7 +11,7 @@ This library is currently being used by
 - [Not Enough NPCs: A 5e NPC Generator](https://foundryvtt.com/packages/npcgen)
 - [Stream Utils](https://foundryvtt.com/packages/0streamutils)
 
-Submit a PR to add your module to the list.
+Let me know and I will add your module to the list.
 
 # Installation
 
