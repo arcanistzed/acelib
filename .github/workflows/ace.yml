@@ -1,11 +1,6 @@
 # Update Ace editor with newest release
 name: update_ace
 
-  # Runs every Monday
-on:
-  schedule:
-    - cron: "0 0 * * MON"
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -23,9 +18,9 @@ jobs:
       - name: Copy and rename files
         run: |
           rm -rf scripts/library/
-          mv ace-builds/src-min-noconflict/ scripts/
+          mv ace-builds/src-noconflict/ scripts/
           cd scripts
-          mv src-min-noconflict library
+          mv src-noconflict library
           
       - name: Remove ace repo
         run: rm -rf ace-builds/
