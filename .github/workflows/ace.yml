@@ -1,6 +1,7 @@
 # Update Ace editor with newest release
 name: update_ace
 
+on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
