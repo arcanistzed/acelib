@@ -55,7 +55,7 @@ Contributions are welcome via pull request.
 
 ## Bugs
 
-You can submit bugs via [Github Issues](https://github.com/arcanistzed/acelib/issues/new/choose).
+You can submit bugs via [Github Issues](https://github.com/arcanistzed/acelib/issues/new/choose) or on [my Discord server](https://discord.gg/AAkZWWqVav).
 
 ## License
 
@@ -63,4 +63,4 @@ This package is under an [MIT license](LICENSE) while Ace is under a [BSD licens
 
 ## Contact me
 
-Come hang out on [my Discord server](https://discord.gg/AAkZWWqVav) where my username is [@arcanist#4317](https://discord.com/users/455117777745870860) or [click here to send me an email](mailto:arcanistzed@gmail.com?subject=NAME%20module%20for%20Foundry%20VTT).
+Come hang out on my [my Discord server](https://discord.gg/AAkZWWqVav) or [click here to send me an email](mailto:arcanistzed@gmail.com?subject=Ace%20Library%20module%20for%20Foundry%20VTT).
