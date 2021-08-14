@@ -44,8 +44,8 @@
   "url": "This is auto replaced",
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
-  "license": "https://github.com/arcanistzed/acelib/blob/main/LICENSE",
-  "readme": "https://github.com/arcanistzed/acelib/blob/main/README.md",
-  "bugs": "https://github.com/arcanistzed/acelib/issues",
-  "changelog": "https://github.com/arcanistzed/acelib/blob/main/README.md"
+  "readme": "https://raw.githubusercontent.com/arcanistzed/acelib/blob/main/README.md",
+  "changelog": "https://raw.githubusercontent.com/arcanistzed/acelib/main/CHANGELOG.md",
+  "license": "https://raw.githubusercontent.com/arcanistzed/acelib/blob/main/LICENSE",
+  "bugs": "https://github.com/arcanistzed/acelib/issues"
 }
