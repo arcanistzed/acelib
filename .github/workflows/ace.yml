@@ -15,17 +15,17 @@ jobs:
 
       - name: Clone the ace repo
         run: git clone https://github.com/ajaxorg/ace-builds.git
-        
+
       - name: Copy and rename files
         run: |
           rm -rf scripts/library/
           mv ace-builds/src-noconflict/ scripts/
           cd scripts
           mv src-noconflict library
-          
+
       - name: Remove ace repo
         run: rm -rf ace-builds/
-        
+
       - name: Commit changes
         uses: EndBug/add-and-commit@v7
         with:
