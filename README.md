@@ -49,17 +49,15 @@ Instructions for customizing each editor individually are available on [the offi
 
 Press Ctrl+Alt+h or Cmd+Alt+h to view a list of all the keyboard shortcuts available. You can access the command palette by pressing F1 while focusing on the editor.
 
-## Contributing
+## License
 
-Contributions are welcome via pull request.
+Copyright © 2021 arcanist
+
+This package is under an [MIT license](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/) while Ace Editor is under a [BSD license](https://github.com/ajaxorg/ace/blob/master/LICENSE).
 
 ## Bugs
 
 You can submit bugs via [Github Issues](https://github.com/arcanistzed/acelib/issues/new/choose) or on [my Discord server](https://discord.gg/AAkZWWqVav).
-
-## License
-
-This package is under an [MIT license](LICENSE) while Ace is under a [BSD license](https://github.com/ajaxorg/ace/blob/master/LICENSE).
 
 ## Contact me
 
