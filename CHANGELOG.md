@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 - 27 Aug 2021 - Commands
+
+* Added Beautify and Keyboard Shortcuts menu commands
+
 ## 1.2.0 - 14 Jul 2021 - Non-minified
 
 * I decided to use the unminified library files
