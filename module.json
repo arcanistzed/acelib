@@ -32,8 +32,10 @@
   "scripts": [
     "scripts/settings.js",
     "scripts/library/ace.js",
-    "scripts/library/ext-language_tools.js",
-    "scripts/library/ext-elastic_tabstops_lite.js"
+    "scripts/library/ext-beautify.js",
+    "scripts/library/ext-elastic_tabstops_lite.js",
+    "scripts/library/ext-keybinding_menu.js",
+    "scripts/library/ext-language_tools.js"
   ],
   "keywords": [
     "ace",

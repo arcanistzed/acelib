@@ -12422,7 +12422,34 @@ exports.commands = [{
         editor.prompt({ $type: "modes" });
     },
     readOnly: true
-}];
+}, 
+
+// Begin custom commands
+{
+    name: "save",
+    description: "Save to file",
+    exec: function(editor) { saveDataToFile(editor.getValue(), "text/plain", "ace") },
+    bindKey: {win: "Ctrl-S", mac: "Command-S"},
+    readOnly: true
+}, {
+    name: "showKeyboardShortcuts",
+    bindKey: {win: "Ctrl-Alt-h", mac: "Command-Alt-h"},
+    exec: function(editor, line) {
+        ace.require("ace/ext/keybinding_menu").init(this.editor);
+        editor.showKeyboardShortcuts();
+    }
+}, {
+    name: "beautify",
+    description: "Format selection (Beautify)",
+    exec: function(editor) {
+        ace.require("ace/ext/beautify").beautify(editor.session);
+    },
+    bindKey: "Ctrl-Shift-B",
+    scrollIntoView: "cursor"
+}
+];
+
+// End custom commands
 
 for (var i = 1; i < 9; i++) {
     exports.commands.push({

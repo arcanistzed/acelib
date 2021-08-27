@@ -308,15 +308,6 @@ exports.beautify = function(session) {
     session.doc.setValue(code);
 };
 
-exports.commands = [{
-    name: "beautify",
-    description: "Format selection (Beautify)",
-    exec: function(editor) {
-        exports.beautify(editor.session);
-    },
-    bindKey: "Ctrl-Shift-B"
-}];
-
 });                (function() {
                     ace.require(["ace/ext/beautify"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {

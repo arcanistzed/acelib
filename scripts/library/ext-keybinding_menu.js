@@ -174,13 +174,6 @@ ace.define("ace/ext/keybinding_menu",["require","exports","module","ace/editor",
         Editor.prototype.showKeyboardShortcuts = function() {
             showKeyboardShortcuts(this);
         };
-        editor.commands.addCommands([{
-            name: "showKeyboardShortcuts",
-            bindKey: {win: "Ctrl-Alt-h", mac: "Command-Alt-h"},
-            exec: function(editor, line) {
-                editor.showKeyboardShortcuts();
-            }
-        }]);
     };
 
 });                (function() {
