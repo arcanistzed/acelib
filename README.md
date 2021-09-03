@@ -15,7 +15,7 @@ Let me know and I will add your module to the list.
 
 ## Installation
 
-In the setup screen, use the URL `https://raw.githubusercontent.com/arcanistzed/acelib/main/module.json` to install the module.
+In the setup screen, use the URL `https://github.com/arcanistzed/acelib/releases/latest/download/module.json` to install the module.
 
 ## Usage
 
