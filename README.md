@@ -1,6 +1,6 @@
 # Ace library
 
-![Version](https://img.shields.io/github/v/tag/arcanistzed/acelib) ![Latest Release Download Count](https://img.shields.io/github/downloads/arcanistzed/acelib/latest/module.zip?label=Downloads&style=flat-square&color=9b43a8) ![Foundry Core Compatible Version](https://img.shields.io/badge/dynamic/json.svg?url=https%3A%2F%2Fraw.githubusercontent.com%2Farcanistzed%2Facelib%2Fmain%2Fmodule.json&label=Foundry%20Core%20Compatible%20Version&query=$.compatibleCoreVersion&style=flat-square&color=ff6400)
+![Version](https://img.shields.io/github/v/tag/arcanistzed/acelib) ![Latest Release Download Count](https://img.shields.io/github/downloads/arcanistzed/acelib/latest/module.zip?label=Downloads&style=flat-square&color=9b43a8) ![Supported Foundry Versions](https://img.shields.io/endpoint?url=https://foundryshields.com/version?url=https://raw.githubusercontent.com/arcanistzed/acelib/main/module.json&style=flat-square&color=ff6400) [![Discord Server](https://img.shields.io/badge/-Discord-%232c2f33?style=flat-square&logo=discord)](https://discord.gg/AAkZWWqVav) [![Patreon](https://img.shields.io/badge/-Patreon-%23141518?style=flat-square&logo=patreon)](https://www.patreon.com/bePatron?u=15896855)
 
 A library module for using the [Ace editor](https://ace.c9.io/) in Foundry VTT.
 
