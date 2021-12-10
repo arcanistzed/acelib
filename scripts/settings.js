@@ -85,7 +85,7 @@ Hooks.once("init", function () {
 	register("enableSnippets", Boolean, undefined, true);
 	register("enableLiveAutocompletion", Boolean, undefined, true);
 	register("useElasticTabstops", Boolean, undefined, true);
-	register("keyboardHandler", String, { "ace/mode/emacs": "emacs", "ace/mode/sublime": "sublime", "ace/mode/vim": "vim", "ace/mode/vscode": "vscode" }, "ace/mode/ace");
+	register("keyboardHandler", String, { "ace/mode/emacs": "emacs", "ace/mode/sublime": "sublime", "ace/mode/vim": "vim", "ace/mode/vscode": "vscode" }, undefined);
 	register("hScrollBarAlwaysVisible", Boolean, undefined, false);
 	register("vScrollBarAlwaysVisible", Boolean, undefined, false);
 	register("maxLines", Number, undefined, undefined, false);
