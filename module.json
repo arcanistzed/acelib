@@ -2,11 +2,6 @@
   "name": "acelib",
   "title": "Ace Library",
   "description": "",
-  "version": "This is auto replaced",
-  "library": "true",
-  "manifestPlusVersion": "1.0.0",
-  "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "9",
   "author": "Arcanist",
   "authors": [
     {
@@ -16,6 +11,25 @@
       "discord": "arcanist#4317",
       "reddit": "u/arcanistzed"
     }
+  ],
+  "url": "This is auto replaced",
+  "license": "https://github.com/arcanistzed/acelib/blob/main/LICENSE",
+  "readme": "https://github.com/arcanistzed/acelib/blob/main/README.md",
+  "bugs": "https://github.com/arcanistzed/acelib/issues/new/choose",
+  "changelog": "https://github.com/arcanistzed/acelib/blob/main/CHANGELOG.md",
+  "flags": {
+    "allowBugReporter": true
+  },
+  "version": "This is auto replaced",
+  "minimumCoreVersion": "0.7.9",
+  "compatibleCoreVersion": "9",
+  "scripts": [
+    "scripts/settings.js",
+    "scripts/library/ace.js",
+    "scripts/library/ext-beautify.js",
+    "scripts/library/ext-elastic_tabstops_lite.js",
+    "scripts/library/ext-keybinding_menu.js",
+    "scripts/library/ext-language_tools.js"
   ],
   "languages": [
     {
@@ -29,19 +43,8 @@
       "path": "languages/fr.json"
     }
   ],
-  "scripts": [
-    "scripts/settings.js",
-    "scripts/library/ace.js",
-    "scripts/library/ext-beautify.js",
-    "scripts/library/ext-elastic_tabstops_lite.js",
-    "scripts/library/ext-keybinding_menu.js",
-    "scripts/library/ext-language_tools.js"
-  ],
-  "url": "This is auto replaced",
   "manifest": "This is auto replaced",
   "download": "This is auto replaced",
-  "readme": "https://github.com/arcanistzed/acelib/blob/main/README.md",
-  "changelog": "https://github.com/arcanistzed/acelib/blob/main/CHANGELOG.md",
-  "license": "https://github.com/arcanistzed/acelib/blob/main/LICENSE",
-  "bugs": "https://github.com/arcanistzed/acelib/issues"
+  "library": "true",
+  "manifestPlusVersion": "1.2.0"
 }
