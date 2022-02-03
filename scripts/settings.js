@@ -22,8 +22,8 @@ Hooks.once("init", function () {
 	 */
 	const register = (name, type, choices = undefined, def, show = true) => {
 		game.settings.register(namespace, name, {
-			name: game.i18n.localize(`${namespace}.settings.${name}.Name`),
-			hint: game.i18n.localize(`${namespace}.settings.${name}.Hint`),
+			name: `${namespace}.settings.${name}.Name`,
+			hint: `${namespace}.settings.${name}.Hint`,
 			scope: "client",
 			config: true,
 			type: type,
