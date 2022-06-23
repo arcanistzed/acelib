@@ -1,5 +1,5 @@
 /** 
- * Defines a set of configuartion options for Ace editors
+ * Defines a set of configuration options for Ace editors
  */
 Hooks.once("init", function () {
 	const namespace = "acelib";
