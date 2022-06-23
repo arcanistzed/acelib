@@ -1,7 +1,8 @@
 {
+  "id": "acelib",
   "name": "acelib",
   "title": "Ace Library",
-  "description": "",
+  "description": "A library module for using the Ace code editor in Foundry VTT.",
   "author": "Arcanist",
   "authors": [
     {
@@ -21,8 +22,12 @@
     "allowBugReporter": true
   },
   "version": "This is auto replaced",
+  "compatibility": {
+    "minimum": "0.7.9",
+    "verified": "10"
+  },
   "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "9",
+  "compatibleCoreVersion": "10",
   "esmodules": [
     "scripts/settings.js"
   ],
