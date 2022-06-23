@@ -120,11 +120,10 @@ color: #994409;\
 }\
 .ace-chrome .ace_indent-guide {\
 background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==\") right repeat-y;\
-}\
-";
+}";
 
 var dom = require("../lib/dom");
-dom.importCssString(exports.cssText, exports.cssClass);
+dom.importCssString(exports.cssText, exports.cssClass, false);
 });                (function() {
                     ace.require(["ace/theme/chrome"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {

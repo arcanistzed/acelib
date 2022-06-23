@@ -173,17 +173,141 @@ exportAce(ACE_NAMESPACE);
 
 })();
 
-ace.define("ace/lib/fixoldbrowsers",["require","exports","module"], function(require, exports, module) {
-"use strict";
-if (typeof Element != "undefined" && !Element.prototype.remove) {
-    Object.defineProperty(Element.prototype, "remove", {
-        enumerable: false,
-        writable: true,
-        configurable: true,
-        value: function() { this.parentNode && this.parentNode.removeChild(this); }
+ace.define("ace/lib/es6-shim",["require","exports","module"], function (require, exports, module) {
+  function defineProp(obj, name, val) {
+    Object.defineProperty(obj, name, {
+      value: val,
+      enumerable: false,
+      writable: true,
+      configurable: true
     });
-}
+  }
+  if (!String.prototype.startsWith) {
+    defineProp(
+      String.prototype,
+      "startsWith",
+      function (searchString, position) {
+        position = position || 0;
+        return this.lastIndexOf(searchString, position) === position;
+      }
+    );
+  }
+  if (!String.prototype.endsWith) {
+    defineProp(String.prototype, "endsWith", function (searchString, position) {
+      var subjectString = this;
+      if (position === undefined || position > subjectString.length) {
+        position = subjectString.length;
+      }
+      position -= searchString.length;
+      var lastIndex = subjectString.indexOf(searchString, position);
+      return lastIndex !== -1 && lastIndex === position;
+    });
+  }
+  if (!String.prototype.repeat) {
+    defineProp(String.prototype, "repeat", function (count) {
+      var result = "";
+      var string = this;
+      while (count > 0) {
+        if (count & 1) result += string;
 
+        if ((count >>= 1)) string += string;
+      }
+      return result;
+    });
+  }
+  if (!String.prototype.includes) {
+    defineProp(String.prototype, "includes", function (str, position) {
+      return this.indexOf(str, position) != -1;
+    });
+  }
+  if (!Object.assign) {
+    Object.assign = function (target) {
+      if (target === undefined || target === null) {
+        throw new TypeError("Cannot convert undefined or null to object");
+      }
+
+      var output = Object(target);
+      for (var index = 1; index < arguments.length; index++) {
+        var source = arguments[index];
+        if (source !== undefined && source !== null) {
+          Object.keys(source).forEach(function (key) {
+            output[key] = source[key];
+          });
+        }
+      }
+      return output;
+    };
+  }
+  if (!Object.values) {
+    Object.values = function (o) {
+      return Object.keys(o).map(function (k) {
+        return o[k];
+      });
+    };
+  }
+  if (!Array.prototype.find) {
+    defineProp(Array.prototype, "find", function (predicate) {
+      var len = this.length;
+      var thisArg = arguments[1];
+      for (var k = 0; k < len; k++) {
+        var kValue = this[k];
+        if (predicate.call(thisArg, kValue, k, this)) {
+          return kValue;
+        }
+      }
+    });
+  }
+  if (!Array.prototype.findIndex) {
+    defineProp(Array.prototype, "findIndex", function (predicate) {
+      var len = this.length;
+      var thisArg = arguments[1];
+      for (var k = 0; k < len; k++) {
+        var kValue = this[k];
+        if (predicate.call(thisArg, kValue, k, this)) {
+          return k;
+        }
+      }
+    });
+  }
+  if (!Array.prototype.includes) {
+    defineProp(Array.prototype, "includes", function (item, position) {
+      return this.indexOf(item, position) != -1;
+    });
+  }
+  if (!Array.prototype.fill) {
+    defineProp(Array.prototype, "fill", function (value) {
+      var O = this;
+      var len = O.length >>> 0;
+      var start = arguments[1];
+      var relativeStart = start >> 0;
+      var k =
+        relativeStart < 0
+          ? Math.max(len + relativeStart, 0)
+          : Math.min(relativeStart, len);
+      var end = arguments[2];
+      var relativeEnd = end === undefined ? len : end >> 0;
+      var final =
+        relativeEnd < 0
+          ? Math.max(len + relativeEnd, 0)
+          : Math.min(relativeEnd, len);
+      while (k < final) {
+        O[k] = value;
+        k++;
+      }
+      return O;
+    });
+  }
+  if (!Array.of) {
+    defineProp(Array, "of", function () {
+      return Array.prototype.slice.call(arguments);
+    });
+  }
+});
+
+ace.define("ace/lib/fixoldbrowsers",["require","exports","module","ace/lib/es6-shim"], function(require, exports, module) {
+"use strict";
+
+require("./es6-shim");
 
 });
 
@@ -283,6 +407,8 @@ exports.buildDom = function buildDom(arr, parent, refs) {
                 el[n] = val;
             } else if (n === "ref") {
                 if (refs) refs[val] = el;
+            } else if (n === "style") {
+                if (typeof val == "string") el.style.cssText = val;
             } else if (val != null) {
                 el.setAttribute(n, val);
             }
@@ -301,8 +427,8 @@ exports.getDocumentHead = function(doc) {
 
 exports.createElement = function(tag, ns) {
     return document.createElementNS ?
-           document.createElementNS(ns || XHTML_NS, tag) :
-           document.createElement(tag);
+            document.createElementNS(ns || XHTML_NS, tag) :
+            document.createElement(tag);
 };
 
 exports.removeChildren = function(element) {
@@ -368,13 +494,49 @@ exports.hasCssString = function(id, doc) {
     var index = 0, sheets;
     doc = doc || document;
     if ((sheets = doc.querySelectorAll("style"))) {
-        while (index < sheets.length)
-            if (sheets[index++].id === id)
+        while (index < sheets.length) {
+            if (sheets[index++].id === id) {
                 return true;
+            }
+        }
     }
 };
 
-exports.importCssString = function importCssString(cssText, id, target) {
+exports.removeElementById = function(id, doc) {
+    doc = doc || document;
+    if(doc.getElementById(id)) {
+        doc.getElementById(id).remove();
+    }
+};
+
+var strictCSP;
+var cssCache = [];
+exports.useStrictCSP = function(value) {
+    strictCSP = value;
+    if (value == false) insertPendingStyles();
+    else if (!cssCache) cssCache = [];
+};
+
+function insertPendingStyles() {
+    var cache = cssCache;
+    cssCache = null;
+    cache && cache.forEach(function(item) {
+        importCssString(item[0], item[1]);
+    });
+}
+
+function importCssString(cssText, id, target) {
+    if (typeof document == "undefined")
+        return;
+    if (cssCache) {
+        if (target) {
+            insertPendingStyles();
+        } else if (target === false) {
+            return cssCache.push([cssText, id]);
+        }
+    }
+    if (strictCSP) return;
+
     var container = target;
     if (!target || !target.getRootNode) {
         container = document;
@@ -399,7 +561,8 @@ exports.importCssString = function importCssString(cssText, id, target) {
     if (container == doc)
         container = exports.getDocumentHead(doc);
     container.insertBefore(style, container.firstChild);
-};
+}
+exports.importCssString = importCssString;
 
 exports.importCssStylsheet = function(uri, doc) {
     exports.buildDom(["link", {rel: "stylesheet", href: uri}], exports.getDocumentHead(doc));
@@ -441,10 +604,6 @@ exports.scrollbarWidth = function(document) {
     return noScrollbar-withScrollbar;
 };
 
-if (typeof document == "undefined") {
-    exports.importCssString = function() {};
-}
-
 exports.computedStyle = function(element, style) {
     return window.getComputedStyle(element, "") || {};
 };
@@ -460,6 +619,8 @@ exports.HAS_CSS_TRANSFORMS = false;
 exports.HI_DPI = useragent.isWin
     ? typeof window !== "undefined" && window.devicePixelRatio >= 1.5
     : true;
+
+if (useragent.isChromeOS) exports.HI_DPI = false;
 
 if (typeof document !== "undefined") {
     var div = document.createElement("div");
@@ -714,47 +875,28 @@ exports.capture = function(el, eventHandler, releaseCaptureHandler) {
 };
 
 exports.addMouseWheelListener = function(el, callback, destroyer) {
-    if ("onmousewheel" in el) {
-        addListener(el, "mousewheel", function(e) {
-            var factor = 8;
-            if (e.wheelDeltaX !== undefined) {
-                e.wheelX = -e.wheelDeltaX / factor;
-                e.wheelY = -e.wheelDeltaY / factor;
-            } else {
-                e.wheelX = 0;
-                e.wheelY = -e.wheelDelta / factor;
-            }
-            callback(e);
-        }, destroyer);
-    } else if ("onwheel" in el) {
-        addListener(el, "wheel",  function(e) {
-            var factor = 0.35;
-            switch (e.deltaMode) {
-                case e.DOM_DELTA_PIXEL:
-                    e.wheelX = e.deltaX * factor || 0;
-                    e.wheelY = e.deltaY * factor || 0;
-                    break;
-                case e.DOM_DELTA_LINE:
-                case e.DOM_DELTA_PAGE:
-                    e.wheelX = (e.deltaX || 0) * 5;
-                    e.wheelY = (e.deltaY || 0) * 5;
-                    break;
-            }
-            
-            callback(e);
-        }, destroyer);
-    } else {
-        addListener(el, "DOMMouseScroll", function(e) {
-            if (e.axis && e.axis == e.HORIZONTAL_AXIS) {
-                e.wheelX = (e.detail || 0) * 5;
-                e.wheelY = 0;
-            } else {
-                e.wheelX = 0;
-                e.wheelY = (e.detail || 0) * 5;
-            }
-            callback(e);
-        }, destroyer);
-    }
+    addListener(el, "wheel",  function(e) {
+        var factor = 0.15;
+        var deltaX = e.deltaX || 0;
+        var deltaY = e.deltaY || 0;
+        switch (e.deltaMode) {
+            case e.DOM_DELTA_PIXEL:
+                e.wheelX = deltaX * factor;
+                e.wheelY = deltaY * factor;
+                break;
+            case e.DOM_DELTA_LINE:
+                var linePixels = 15;
+                e.wheelX = deltaX * linePixels;
+                e.wheelY = deltaY * linePixels;
+                break;
+            case e.DOM_DELTA_PAGE:
+                var pagePixels = 150;
+                e.wheelX = deltaX * pagePixels;
+                e.wheelY = deltaY * pagePixels;
+                break;
+        }
+        callback(e);
+    }, destroyer);
 };
 
 exports.addMultiMouseDownListener = function(elements, timeouts, eventHandler, callbackName, destroyer) {
@@ -1933,8 +2075,8 @@ var TextInput = function(parentNode, host) {
         return text;
     };
     this.setCommandMode = function(value) {
-       commandMode = value;
-       text.readOnly = false;
+        commandMode = value;
+        text.readOnly = false;
     };
     
     this.setReadOnly = function(readOnly) {
@@ -2012,7 +2154,7 @@ var TextInput = function(parentNode, host) {
     function addIosSelectionHandler(parentNode, host, text) {
         var typingResetTimeout = null;
         var typing = false;
- 
+
         text.addEventListener("keydown", function (e) {
             if (typingResetTimeout) clearTimeout(typingResetTimeout);
             typing = true;
@@ -2090,6 +2232,11 @@ var TextInput = function(parentNode, host) {
             document.removeEventListener("selectionchange", detectArrowKeys);
         });
     }
+
+    this.destroy = function() {
+        if (text.parentElement)
+            text.parentElement.removeChild(text);
+    };
 };
 
 exports.TextInput = TextInput;
@@ -2379,6 +2526,8 @@ ace.define("ace/tooltip",["require","exports","module","ace/lib/oop","ace/lib/do
 
 var oop = require("./lib/oop");
 var dom = require("./lib/dom");
+
+var CLASSNAME = "ace_tooltip";
 function Tooltip (parentNode) {
     this.isOpen = false;
     this.$element = null;
@@ -2388,7 +2537,7 @@ function Tooltip (parentNode) {
 (function() {
     this.$init = function() {
         this.$element = dom.createElement("div");
-        this.$element.className = "ace_tooltip";
+        this.$element.className = CLASSNAME;
         this.$element.style.display = "none";
         this.$parentNode.appendChild(this.$element);
         return this.$element;
@@ -2423,6 +2572,7 @@ function Tooltip (parentNode) {
     this.hide = function() {
         if (this.isOpen) {
             this.getElement().style.display = "none";
+            this.getElement().className = CLASSNAME;
             this.isOpen = false;
         }
     };
@@ -2504,6 +2654,12 @@ function GutterHandler(mouseHandler) {
         tooltipAnnotation = annotation.text.join("<br/>");
 
         tooltip.setHtml(tooltipAnnotation);
+
+        var annotationClassName = annotation.className;
+        if (annotationClassName) {
+            tooltip.setClassName(annotationClassName.trim());
+        }
+
         tooltip.show();
         editor._signal("showGutterTooltip", tooltip);
         editor.on("mousewheel", hideTooltip);
@@ -2688,18 +2844,16 @@ function DragdropHandler(mouseHandler) {
 
     var editor = mouseHandler.editor;
 
-    var blankImage = dom.createElement("img");
-    blankImage.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
-    if (useragent.isOpera)
-        blankImage.style.cssText = "width:1px;height:1px;position:fixed;top:0;left:0;z-index:2147483647;opacity:0;";
+    var dragImage = dom.createElement("div");
+    dragImage.style.cssText = "top:-100px;position:absolute;z-index:2147483647;opacity:0.5";
+    dragImage.textContent = "\xa0";
 
     var exports = ["dragWait", "dragWaitEnd", "startDrag", "dragReadyEnd", "onMouseDrag"];
 
-     exports.forEach(function(x) {
-         mouseHandler[x] = this[x];
+    exports.forEach(function(x) {
+        mouseHandler[x] = this[x];
     }, this);
     editor.on("mousedown", this.onMouseDown.bind(mouseHandler));
-
 
     var mouseTarget = editor.container;
     var dragSelectionMarker, x, y;
@@ -2724,14 +2878,12 @@ function DragdropHandler(mouseHandler) {
 
         var dataTransfer = e.dataTransfer;
         dataTransfer.effectAllowed = editor.getReadOnly() ? "copy" : "copyMove";
-        if (useragent.isOpera) {
-            editor.container.appendChild(blankImage);
-            blankImage.scrollTop = 0;
-        }
-        dataTransfer.setDragImage && dataTransfer.setDragImage(blankImage, 0, 0);
-        if (useragent.isOpera) {
-            editor.container.removeChild(blankImage);
-        }
+        editor.container.appendChild(dragImage);
+
+        dataTransfer.setDragImage && dataTransfer.setDragImage(dragImage, 0, 0);
+        setTimeout(function() {
+            editor.container.removeChild(dragImage);
+        });
         dataTransfer.clearData();
         dataTransfer.setData("Text", editor.session.getTextRange());
 
@@ -3670,12 +3822,13 @@ exports.AppConfig = AppConfig;
 
 });
 
-ace.define("ace/config",["require","exports","module","ace/lib/lang","ace/lib/oop","ace/lib/net","ace/lib/app_config"], function(require, exports, module) {
+ace.define("ace/config",["require","exports","module","ace/lib/lang","ace/lib/oop","ace/lib/net","ace/lib/dom","ace/lib/app_config"], function(require, exports, module) {
 "no use strict";
 
 var lang = require("./lib/lang");
 var oop = require("./lib/oop");
 var net = require("./lib/net");
+var dom = require("./lib/dom");
 var AppConfig = require("./lib/app_config").AppConfig;
 
 module.exports = exports = new AppConfig();
@@ -3693,13 +3846,13 @@ var options = {
     suffix: ".js",
     $moduleUrls: {},
     loadWorkerFromBlob: true,
-    sharedPopups: false
+    sharedPopups: false,
+    useStrictCSP: null
 };
 
 exports.get = function(key) {
     if (!options.hasOwnProperty(key))
         throw new Error("Unknown config key: " + key);
-
     return options[key];
 };
 
@@ -3708,6 +3861,8 @@ exports.set = function(key, value) {
         options[key] = value;
     else if (this.setDefaultValue("", key, value) == false)
         throw new Error("Unknown config key: " + key);
+    if (key == "useStrictCSP")
+        dom.useStrictCSP(value);
 };
 
 exports.all = function() {
@@ -3854,7 +4009,7 @@ function deHyphenate(str) {
     return str.replace(/-(.)/g, function(m, m1) { return m1.toUpperCase(); });
 }
 
-exports.version = "1.4.12";
+exports.version = "1.6.0";
 
 });
 
@@ -3884,6 +4039,9 @@ var MouseHandler = function(editor) {
         if (windowBlurred)
             window.focus();
         editor.focus();
+        setTimeout(function () {
+            if (!editor.isFocused()) editor.focus();
+        });
     };
 
     var mouseTarget = editor.renderer.getMouseEventTarget();
@@ -3929,6 +4087,7 @@ var MouseHandler = function(editor) {
 
 (function() {
     this.onMouseEvent = function(name, e) {
+        if (!this.editor.session) return;
         this.editor._emit(name, new MouseEvent(e, this.editor));
     };
 
@@ -3978,7 +4137,7 @@ var MouseHandler = function(editor) {
         var onCaptureEnd = function(e) {
             editor.off("beforeEndOperation", onOperationEnd);
             clearInterval(timerId);
-            onCaptureInterval();
+            if (editor.session) onCaptureInterval();
             self[self.state + "End"] && self[self.state + "End"](e);
             self.state = "";
             self.isMousePressed = renderer.$isMousePressed = false;
@@ -5399,7 +5558,6 @@ var Selection = function(session) {
     this.detach = function() {
         this.lead.detach();
         this.anchor.detach();
-        this.session = this.doc = null;
     };
 
     this.fromOrientedRange = function(range) {
@@ -5509,8 +5667,10 @@ var Tokenizer = function(rules) {
             var rule = state[i];
             if (rule.defaultToken)
                 mapping.defaultToken = rule.defaultToken;
-            if (rule.caseInsensitive)
-                flag = "gi";
+            if (rule.caseInsensitive && flag.indexOf("i") === -1)
+                flag += "i";
+            if (rule.unicode && flag.indexOf("u") === -1)
+                flag += "u";
             if (rule.regex == null)
                 continue;
 
@@ -5615,7 +5775,7 @@ var Tokenizer = function(rules) {
 
     this.removeCapturingGroups = function(src) {
         var r = src.replace(
-            /\\.|\[(?:\\.|[^\\\]])*|\(\?[:=!]|(\()/g,
+            /\\.|\[(?:\\.|[^\\\]])*|\(\?[:=!<]|(\()/g,
             function(x, y) {return y ? "(?:" : x;}
         );
         return r;
@@ -7587,6 +7747,14 @@ var BackgroundTokenizer = function(tokenizer, editor) {
         return this.lines[row] = data.tokens;
     };
 
+    this.cleanup = function() {
+        this.running = false;
+        this.lines = [];
+        this.states = [];
+        this.currentLine = 0;
+        this.removeAllListeners();
+    };
+
 }).call(BackgroundTokenizer.prototype);
 
 exports.BackgroundTokenizer = BackgroundTokenizer;
@@ -7619,6 +7787,7 @@ var SearchHighlight = function(regExp, clazz, type) {
         if (!this.regExp)
             return;
         var start = config.firstRow, end = config.lastRow;
+        var renderedMarkerRanges = {};
 
         for (var i = start; i <= end; i++) {
             var ranges = this.cache[i];
@@ -7633,8 +7802,13 @@ var SearchHighlight = function(regExp, clazz, type) {
             }
 
             for (var j = ranges.length; j --; ) {
+                var rangeToAddMarkerTo = ranges[j].toScreenRange(session);
+                var rangeAsString = rangeToAddMarkerTo.toString();
+                if (renderedMarkerRanges[rangeAsString]) continue;
+
+                renderedMarkerRanges[rangeAsString] = true;
                 markerLayer.drawSingleLineMarker(
-                    html, ranges[j].toScreenRange(session), this.clazz, config);
+                    html, rangeToAddMarkerTo, this.clazz, config);
             }
         }
     };
@@ -8573,21 +8747,38 @@ function Folding() {
         if (location == null) {
             range = new Range(0, 0, this.getLength(), 0);
             if (expandInner == null) expandInner = true;
-        } else if (typeof location == "number")
+        } else if (typeof location == "number") {
             range = new Range(location, 0, location, this.getLine(location).length);
-        else if ("row" in location)
+        } else if ("row" in location) {
             range = Range.fromPoints(location, location);
-        else
+        } else if (Array.isArray(location)) {
+            folds = [];
+            location.forEach(function(range) {
+                folds = folds.concat(this.unfold(range));
+            }, this);
+            return folds;
+        } else {
             range = location;
+        }
         
         folds = this.getFoldsInRangeList(range);
+        var outermostFolds = folds;
+        while (
+            folds.length == 1
+            && Range.comparePoints(folds[0].start, range.start) < 0 
+            && Range.comparePoints(folds[0].end, range.end) > 0
+        ) {
+            this.expandFolds(folds);
+            folds = this.getFoldsInRangeList(range);
+        }
+        
         if (expandInner != false) {
             this.removeFolds(folds);
         } else {
             this.expandFolds(folds);
         }
-        if (folds.length)
-            return folds;
+        if (outermostFolds.length)
+            return outermostFolds;
     };
     this.isRowFolded = function(docRow, startFoldRow) {
         return !!this.getFoldLine(docRow, startFoldRow);
@@ -9231,6 +9422,13 @@ var EditSession = function(text, mode) {
     this.$foldData.toString = function() {
         return this.join("\n");
     };
+    this.bgTokenizer = new BackgroundTokenizer((new TextMode()).getTokenizer(), this);
+
+    var _self = this;
+    this.bgTokenizer.on("update", function(e) {
+        _self._signal("tokenizerUpdate", e);
+    });
+
     this.on("changeFold", this.onChangeFold.bind(this));
     this.$onChange = this.onChange.bind(this);
 
@@ -9244,6 +9442,8 @@ var EditSession = function(text, mode) {
     config.resetOptions(this);
     this.setMode(mode);
     config._signal("session", this);
+
+    this.destroyed = false;
 };
 
 
@@ -9254,13 +9454,12 @@ EditSession.$uid = 0;
     oop.implement(this, EventEmitter);
     this.setDocument = function(doc) {
         if (this.doc)
-            this.doc.removeListener("change", this.$onChange);
+            this.doc.off("change", this.$onChange);
 
         this.doc = doc;
         doc.on("change", this.$onChange);
 
-        if (this.bgTokenizer)
-            this.bgTokenizer.setDocument(this.getDocument());
+        this.bgTokenizer.setDocument(this.getDocument());
 
         this.resetCaches();
     };
@@ -9305,7 +9504,7 @@ EditSession.$uid = 0;
         this.$wrapData = [];
         this.$rowLengthCache = [];
         this.$resetRowCache(0);
-        if (this.bgTokenizer)
+        if (!this.destroyed)
             this.bgTokenizer.start(0);
     };
 
@@ -9334,7 +9533,7 @@ EditSession.$uid = 0;
             this.$informUndoManager.schedule();
         }
 
-        this.bgTokenizer && this.bgTokenizer.$updateOnChange(delta);
+        this.bgTokenizer.$updateOnChange(delta);
         this._signal("change", delta);
     };
     this.setValue = function(text) {
@@ -9697,16 +9896,7 @@ EditSession.$uid = 0;
             tokenizer.on("update", onReloadTokenizer);
         }
 
-        if (!this.bgTokenizer) {
-            this.bgTokenizer = new BackgroundTokenizer(tokenizer);
-            var _self = this;
-            this.bgTokenizer.on("update", function(e) {
-                _self._signal("tokenizerUpdate", e);
-            });
-        } else {
-            this.bgTokenizer.setTokenizer(tokenizer);
-        }
-
+        this.bgTokenizer.setTokenizer(tokenizer);
         this.bgTokenizer.setDocument(this.getDocument());
 
         this.tokenRe = mode.tokenRe;
@@ -10774,12 +10964,16 @@ EditSession.$uid = 0;
     };
     
     this.destroy = function() {
-        if (this.bgTokenizer) {
+        if (!this.destroyed) {
             this.bgTokenizer.setDocument(null);
-            this.bgTokenizer = null;
+            this.bgTokenizer.cleanup();
+            this.destroyed = true;
         }
         this.$stopWorker();
         this.removeAllListeners();
+        if (this.doc) {
+            this.doc.off("change", this.$onChange);
+        }
         this.selection.detach();
     };
 
@@ -11171,7 +11365,7 @@ var Search = function() {
             var len = re.length;
             var forEachInLine = function(row, offset, callback) {
                 var startRow = backwards ? row - len + 1 : row;
-                if (startRow < 0) return;
+                if (startRow < 0 || startRow + len > session.getLength()) return;
                 var line = session.getLine(startRow);
                 var startIndex = line.search(re[0]);
                 if (!backwards && startIndex < offset || startIndex === -1) return;
@@ -11478,7 +11672,10 @@ var CommandManager = function(platform, commands) {
     MultiHashHandler.call(this, commands, platform);
     this.byName = this.commands;
     this.setDefaultHandler("exec", function(e) {
-        return e.command.exec(e.editor, e.args || {});
+        if (!e.args) {
+            return e.command.exec(e.editor, {}, e.event, true);
+        }
+        return e.command.exec(e.editor, e.args, e.event, false);
     });
 };
 
@@ -11589,6 +11786,7 @@ function bindKey(win, mac) {
 }
 exports.commands = [{
     name: "showSettingsMenu",
+    description: "Show settings menu",
     bindKey: bindKey("Ctrl-,", "Command-,"),
     exec: function(editor) {
         config.loadModule("ace/ext/settings_menu", function(module) {
@@ -11599,6 +11797,7 @@ exports.commands = [{
     readOnly: true
 }, {
     name: "goToNextError",
+    description: "Go to next error",
     bindKey: bindKey("Alt-E", "F4"),
     exec: function(editor) {
         config.loadModule("./ext/error_marker", function(module) {
@@ -11609,6 +11808,7 @@ exports.commands = [{
     readOnly: true
 }, {
     name: "goToPreviousError",
+    description: "Go to previous error",
     bindKey: bindKey("Alt-Shift-E", "Shift-F4"),
     exec: function(editor) {
         config.loadModule("./ext/error_marker", function(module) {
@@ -11655,6 +11855,7 @@ exports.commands = [{
     readOnly: true
 }, {
     name: "toggleFoldWidget",
+    description: "Toggle fold widget",
     bindKey: bindKey("F2", "F2"),
     exec: function(editor) { editor.session.toggleFoldWidget(); },
     multiSelectAction: "forEach",
@@ -11662,6 +11863,7 @@ exports.commands = [{
     readOnly: true
 }, {
     name: "toggleParentFoldWidget",
+    description: "Toggle parent fold widget",
     bindKey: bindKey("Alt-F2", "Alt-F2"),
     exec: function(editor) { editor.session.toggleFoldWidget(true); },
     multiSelectAction: "forEach",
@@ -12388,6 +12590,7 @@ exports.commands = [{
     scrollIntoView: "none"
 }, {
     name: "addLineAfter",
+    description: "Add new line after the current line",
     exec: function(editor) {
         editor.selection.clearSelection();
         editor.navigateLineEnd();
@@ -12397,6 +12600,7 @@ exports.commands = [{
     scrollIntoView: "cursor"
 }, {
     name: "addLineBefore",
+    description: "Add new line before the current line",
     exec: function(editor) {
         editor.selection.clearSelection();
         var cursor = editor.getCursorPosition();
@@ -12422,34 +12626,7 @@ exports.commands = [{
         editor.prompt({ $type: "modes" });
     },
     readOnly: true
-}, 
-
-// Begin custom commands
-{
-    name: "save",
-    description: "Save to file",
-    exec: function(editor) { saveDataToFile(editor.getValue(), "text/plain", "ace") },
-    bindKey: {win: "Ctrl-S", mac: "Command-S"},
-    readOnly: true
-}, {
-    name: "showKeyboardShortcuts",
-    bindKey: {win: "Ctrl-Alt-h", mac: "Command-Alt-h"},
-    exec: function(editor, line) {
-        ace.require("ace/ext/keybinding_menu").init(this.editor);
-        editor.showKeyboardShortcuts();
-    }
-}, {
-    name: "beautify",
-    description: "Format selection (Beautify)",
-    exec: function(editor) {
-        ace.require("ace/ext/beautify").beautify(editor.session);
-    },
-    bindKey: "Ctrl-Shift-B",
-    scrollIntoView: "cursor"
-}
-];
-
-// End custom commands
+}];
 
 for (var i = 1; i < 9; i++) {
     exports.commands.push({
@@ -12515,7 +12692,7 @@ var Editor = function(renderer, session, options) {
     
     this._$emitInputEvent = lang.delayedCall(function() {
         this._signal("input", {});
-        if (this.session && this.session.bgTokenizer)
+        if (this.session && !this.session.destroyed)
             this.session.bgTokenizer.scheduleStart();
     }.bind(this));
     
@@ -12782,7 +12959,7 @@ Editor.$uid = 0;
         oldSession && oldSession._signal("changeEditor", {oldEditor: this});
         session && session._signal("changeEditor", {editor: this});
         
-        if (session && session.bgTokenizer)
+        if (session && !session.destroyed)
             session.bgTokenizer.scheduleStart();
     };
     this.getSession = function() {
@@ -12838,7 +13015,7 @@ Editor.$uid = 0;
         setTimeout(function () {
             self.$highlightPending = false;
             var session = self.session;
-            if (!session || !session.bgTokenizer) return;
+            if (!session || session.destroyed) return;
             if (session.$bracketHighlight) {
                 session.$bracketHighlight.markerIds.forEach(function(id) {
                     session.removeMarker(id);
@@ -12881,7 +13058,7 @@ Editor.$uid = 0;
             self.$highlightTagPending = false;
             
             var session = self.session;
-            if (!session || !session.bgTokenizer) return;
+            if (!session || session.destroyed) return;
             
             var pos = self.getCursorPosition();
             var iterator = new TokenIterator(self.session, pos.row, pos.column);
@@ -12981,11 +13158,6 @@ Editor.$uid = 0;
         }, 50);
     };
     this.focus = function() {
-        var _self = this;
-        setTimeout(function() {
-            if (!_self.isFocused())
-                _self.textInput.focus();
-        });
         this.textInput.focus();
     };
     this.isFocused = function() {
@@ -13179,7 +13351,7 @@ Editor.$uid = 0;
         }
         var e = {text: text};
         this._signal("copy", e);
-        clipboard.lineMode = copyLine ? e.text : "";
+        clipboard.lineMode = copyLine ? e.text : false;
         return e.text;
     };
     this.onCopy = function() {
@@ -13199,7 +13371,7 @@ Editor.$uid = 0;
         this._signal("paste", e);
         var text = e.text;
 
-        var lineMode = text == clipboard.lineMode;
+        var lineMode = text === clipboard.lineMode;
         var session = this.session;
         if (!this.inMultiSelectMode || this.inVirtualSelectionMode) {
             if (lineMode)
@@ -16209,7 +16381,7 @@ var Text = function(parentEl) {
 
     this.$renderToken = function(parent, screenColumn, token, value) {
         var self = this;
-        var re = /(\t)|( +)|([\x00-\x1f\x80-\xa0\xad\u1680\u180E\u2000-\u200f\u2028\u2029\u202F\u205F\uFEFF\uFFF9-\uFFFC]+)|(\u3000)|([\u1100-\u115F\u11A3-\u11A7\u11FA-\u11FF\u2329-\u232A\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFB\u3001-\u303E\u3041-\u3096\u3099-\u30FF\u3105-\u312D\u3131-\u318E\u3190-\u31BA\u31C0-\u31E3\u31F0-\u321E\u3220-\u3247\u3250-\u32FE\u3300-\u4DBF\u4E00-\uA48C\uA490-\uA4C6\uA960-\uA97C\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFAFF\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFF01-\uFF60\uFFE0-\uFFE6]|[\uD800-\uDBFF][\uDC00-\uDFFF])/g;
+        var re = /(\t)|( +)|([\x00-\x1f\x80-\xa0\xad\u1680\u180E\u2000-\u200f\u2028\u2029\u202F\u205F\uFEFF\uFFF9-\uFFFC\u2066\u2067\u2068\u202A\u202B\u202D\u202E\u202C\u2069]+)|(\u3000)|([\u1100-\u115F\u11A3-\u11A7\u11FA-\u11FF\u2329-\u232A\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFB\u3001-\u303E\u3041-\u3096\u3099-\u30FF\u3105-\u312D\u3131-\u318E\u3190-\u31BA\u31C0-\u31E3\u31F0-\u321E\u3220-\u3247\u3250-\u32FE\u3300-\u4DBF\u4E00-\uA48C\uA490-\uA4C6\uA960-\uA97C\uAC00-\uD7A3\uD7B0-\uD7C6\uD7CB-\uD7FB\uF900-\uFAFF\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE66\uFE68-\uFE6B\uFF01-\uFF60\uFFE0-\uFFE6]|[\uD800-\uDBFF][\uDC00-\uDFFF])/g;
         
         var valueFragment = this.dom.createFragment(this.element);
 
@@ -16373,15 +16545,15 @@ var Text = function(parentEl) {
 
     this.$renderSimpleLine = function(parent, tokens) {
         var screenColumn = 0;
-        var token = tokens[0];
-        var value = token.value;
-        if (this.displayIndentGuides)
-            value = this.renderIndentGuide(parent, value);
-        if (value)
-            screenColumn = this.$renderToken(parent, screenColumn, token, value);
-        for (var i = 1; i < tokens.length; i++) {
-            token = tokens[i];
-            value = token.value;
+
+        for (var i = 0; i < tokens.length; i++) {
+            var token = tokens[i];
+            var value = token.value;
+            if (i == 0 && this.displayIndentGuides) {
+                value = this.renderIndentGuide(parent, value);
+                if (!value)
+                    continue;
+            }
             if (screenColumn + value.length > this.MAX_LINE_LENGTH)
                 return this.$renderOverflowMessage(parent, screenColumn, token, value);
             screenColumn = this.$renderToken(parent, screenColumn, token, value);
@@ -16543,12 +16715,16 @@ var Cursor = function(parentEl) {
         for (var i = cursors.length; i--; )
             cursors[i].style.animationDuration = this.blinkInterval + "ms";
 
+        this.$isAnimating = true;
         setTimeout(function() {
-            dom.addCssClass(this.element, "ace_animate-blinking");
+            if (this.$isAnimating) {
+                dom.addCssClass(this.element, "ace_animate-blinking");
+            }
         }.bind(this));
     };
     
     this.$stopCssAnimation = function() {
+        this.$isAnimating = false;
         dom.removeCssClass(this.element, "ace_animate-blinking");
     };
 
@@ -16619,6 +16795,7 @@ var Cursor = function(parentEl) {
         this.$stopCssAnimation();
 
         if (this.smoothBlinking) {
+            this.$isSmoothBlinking = false;
             dom.removeCssClass(this.element, "ace_smooth-blinking");
         }
         
@@ -16630,8 +16807,11 @@ var Cursor = function(parentEl) {
         }
 
         if (this.smoothBlinking) {
-            setTimeout(function(){
-                dom.addCssClass(this.element, "ace_smooth-blinking");
+            this.$isSmoothBlinking = true;
+            setTimeout(function() {
+                if (this.$isSmoothBlinking) {
+                    dom.addCssClass(this.element, "ace_smooth-blinking");
+                }
             }.bind(this));
         }
         
@@ -17197,9 +17377,6 @@ z-index: 1000;\
 .ace_dragging.ace_dark .ace_scroller:before{\
 background: rgba(0, 0, 0, 0.01);\
 }\
-.ace_selecting, .ace_selecting * {\
-cursor: text !important;\
-}\
 .ace_gutter {\
 position: absolute;\
 overflow : hidden;\
@@ -17632,7 +17809,7 @@ margin: 0 10px;\
 var useragent = require("./lib/useragent");
 var HIDE_TEXTAREA = useragent.isIE;
 
-dom.importCssString(editorCss, "ace_editor.css");
+dom.importCssString(editorCss, "ace_editor.css", false);
 
 var VirtualRenderer = function(container, theme) {
     var _self = this;
@@ -17643,6 +17820,8 @@ var VirtualRenderer = function(container, theme) {
     if (dom.HI_DPI) dom.addCssClass(this.container, "ace_hidpi");
 
     this.setTheme(theme);
+    if (config.get("useStrictCSP") == null) 
+        config.set("useStrictCSP", false);
 
     this.$gutter = dom.createElement("div");
     this.$gutter.className = "ace_gutter";
@@ -17894,7 +18073,7 @@ var VirtualRenderer = function(container, theme) {
 
         if (this.resizing)
             this.resizing = 0;
-        this.scrollBarV.scrollLeft = this.scrollBarV.scrollTop = null;
+        this.scrollBarH.scrollLeft = this.scrollBarV.scrollTop = null;
     };
     
     this.$updateCachedSize = function(force, gutterWidth, width, height) {
@@ -18660,7 +18839,7 @@ var VirtualRenderer = function(container, theme) {
     };
     this.scrollTo = function(x, y) {
         this.session.setScrollTop(y);
-        this.session.setScrollLeft(y);
+        this.session.setScrollLeft(x);
     };
     this.scrollBy = function(deltaX, deltaY) {
         deltaY && this.session.setScrollTop(this.session.getScrollTop() + deltaY);
@@ -19161,7 +19340,7 @@ var WorkerClient = function(worker) {
         try {
             if (data.data && data.data.err)
                 data.data.err = {message: data.data.err.message, stack: data.data.err.stack, code: data.data.err.code};
-            this.$worker.postMessage({event: event, data: {data: data.data}});
+                this.$worker && this.$worker.postMessage({event: event, data: {data: data.data}});
         }
         catch(ex) {
             console.error(ex.stack);
@@ -20718,7 +20897,7 @@ background: url(\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZ
 exports.$id = "ace/theme/textmate";
 
 var dom = require("../lib/dom");
-dom.importCssString(exports.cssText, exports.cssClass);
+dom.importCssString(exports.cssText, exports.cssClass, false);
 });
 
 ace.define("ace/line_widgets",["require","exports","module","ace/lib/dom"], function(require, exports, module) {
@@ -21265,7 +21444,7 @@ dom.importCssString("\
         border-left-color: transparent!important;\
         top: -5px;\
     }\
-", "");
+", "error_marker.css", false);
 
 });
 
