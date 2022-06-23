@@ -1,5 +1,8 @@
 # Changelog
 
+* Update to Ace v1.6.0
+* Fixed Ace keybinding file not found error
+
 ## 1.3.0 - 27 Aug 2021 - Commands
 
 * Added Beautify and Keyboard Shortcuts menu commands
