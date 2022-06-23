@@ -1,7 +1,7 @@
 /** 
  * Defines a set of configuration options for Ace editors
  */
-Hooks.once("init", function () {
+Hooks.once("init", () => {
 	const namespace = "acelib";
 	const settings = [];
 

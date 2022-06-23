@@ -23,8 +23,10 @@
   "version": "This is auto replaced",
   "minimumCoreVersion": "0.7.9",
   "compatibleCoreVersion": "9",
+  "esmodules": [
+    "scripts/settings.js"
+  ],
   "scripts": [
-    "scripts/settings.js",
     "scripts/library/ace.js",
     "scripts/library/ext-beautify.js",
     "scripts/library/ext-elastic_tabstops_lite.js",
