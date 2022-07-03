@@ -1,5 +1,5 @@
-# Update Ace editor with newest release
-name: update_ace
+# Update Ace editor with newest upstream release
+name: Update Ace from upstream
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -8,25 +8,64 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: update_ace
+    name: Update Ace
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v2
+      - name: Checkout this repo
+        uses: actions/checkout@v3
+        with:
+          path: main
+      
+      - name: Checkout upstream repo
+        uses: actions/checkout@v3
+        with:
+          repository: ajaxorg/ace
+          path: upstream
+          
+      - name: Setup Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
-      - name: Clone the ace repo
-        run: git clone https://github.com/ajaxorg/ace-builds.git
-
-      - name: Copy and rename files
+      - name: Build ace
         run: |
-          rm -rf scripts/library/
-          mv ace-builds/src-noconflict/ scripts/
-          cd scripts
-          mv src-noconflict library
+          cd upstream
+          npm install
+          cd ..
+          node upstream/Makefile.dryice.js --m --nc --s --target ace-builds
+          rm -rf main/scripts/library/
+          mv ace-builds/src-min-noconflict/ main/scripts/library/
 
-      - name: Remove ace repo
-        run: rm -rf ace-builds/
+      - name: Find latest upstream tag
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: ajaxorg/ace
+          releases-only: true
+        id: latestUpstream
+        
+      - name: Find latest tag for this repo
+        uses: oprypin/find-latest-tag@v1
+        with:
+          repository: arcanistzed/acelib
+          releases-only: true
+        id: latestMain
+
+      - name: Determine tag for this release
+        uses: actions-ecosystem/action-bump-semver@v1
+        id: newTag
+        with:
+          current_version: ${{ steps.latestMain.outputs.tag }}
+          level: minor
 
       - name: Commit changes
-        uses: EndBug/add-and-commit@v7
+        uses: EndBug/add-and-commit@v9
         with:
-          message: "Update ace"
+          message: "chore: update ace to ${{ steps.latestUpstream.outputs.tag }}"
+          cwd: "./main"
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.10.0
+        with:
+          body: "Update Ace editor to ${{ steps.latestUpstream.outputs.tag }}"
+          draft: true
+          generateReleaseNotes: true
+          tag: ${{ steps.newTag.outputs.new_version }}
