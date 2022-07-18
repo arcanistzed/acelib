@@ -1,57 +1,57 @@
 {
-  "id": "acelib",
-  "name": "acelib",
-  "title": "Ace Library",
-  "description": "A library module for using the Ace code editor in Foundry VTT.",
-  "author": "Arcanist",
-  "authors": [
-    {
-      "name": "Arcanist",
-      "url": "https://arcanist.me",
-      "email": "arcanistzed@gmail.com",
-      "discord": "arcanist#4317",
-      "reddit": "u/arcanistzed"
-    }
-  ],
-  "url": "This is auto replaced",
-  "license": "https://github.com/arcanistzed/acelib/blob/main/LICENSE",
-  "readme": "https://github.com/arcanistzed/acelib/blob/main/README.md",
-  "bugs": "https://github.com/arcanistzed/acelib/issues/new/choose",
-  "changelog": "https://github.com/arcanistzed/acelib/blob/main/CHANGELOG.md",
-  "flags": {
-    "allowBugReporter": true
-  },
-  "version": "This is auto replaced",
-  "compatibility": {
-    "minimum": "0.7.9",
-    "verified": "10"
-  },
-  "minimumCoreVersion": "0.7.9",
-  "compatibleCoreVersion": "10",
-  "esmodules": [
-    "scripts/settings.js"
-  ],
-  "scripts": [
-    "scripts/library/ace.js",
-    "scripts/library/ext-beautify.js",
-    "scripts/library/ext-elastic_tabstops_lite.js",
-    "scripts/library/ext-keybinding_menu.js",
-    "scripts/library/ext-language_tools.js"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "languages/en.json"
+    "id": "acelib",
+    "name": "acelib",
+    "title": "Ace Library",
+    "description": "A library module for using the Ace code editor in Foundry VTT.",
+    "author": "Arcanist",
+    "authors": [
+        {
+            "name": "Arcanist",
+            "url": "https://arcanist.me",
+            "email": "arcanistzed@gmail.com",
+            "discord": "arcanist#4317",
+            "reddit": "u/arcanistzed"
+        }
+    ],
+    "url": "This is auto replaced",
+    "license": "https://github.com/arcanistzed/acelib/blob/main/LICENSE",
+    "readme": "https://github.com/arcanistzed/acelib/blob/main/README.md",
+    "bugs": "https://github.com/arcanistzed/acelib/issues/new/choose",
+    "changelog": "https://github.com/arcanistzed/acelib/blob/main/CHANGELOG.md",
+    "flags": {
+        "allowBugReporter": true
     },
-    {
-      "lang": "fr",
-      "name": "French",
-      "path": "languages/fr.json"
-    }
-  ],
-  "manifest": "This is auto replaced",
-  "download": "This is auto replaced",
-  "library": "true",
-  "manifestPlusVersion": "1.2.0"
+    "version": "This is auto replaced",
+    "compatibility": {
+        "minimum": "0.7.9",
+        "verified": "10"
+    },
+    "minimumCoreVersion": "0.7.9",
+    "compatibleCoreVersion": "10",
+    "esmodules": [
+        "scripts/settings.js"
+    ],
+    "scripts": [
+        "scripts/library/ace.js",
+        "scripts/library/ext-beautify.js",
+        "scripts/library/ext-elastic_tabstops_lite.js",
+        "scripts/library/ext-keybinding_menu.js",
+        "scripts/library/ext-language_tools.js"
+    ],
+    "languages": [
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "languages/en.json"
+        },
+        {
+            "lang": "fr",
+            "name": "French",
+            "path": "languages/fr.json"
+        }
+    ],
+    "manifest": "This is auto replaced",
+    "download": "This is auto replaced",
+    "library": true,
+    "manifestPlusVersion": "1.2.0"
 }
