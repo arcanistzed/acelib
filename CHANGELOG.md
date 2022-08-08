@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0 - 8 Aug 2022
+
+Update Ace editor to v1.9.3
+
+## 1.5.0 - 20 Jul 2022
+
+Update Ace editor to v1.8.0
+
+## 1.4.0 - 23 Jun 2022
+
 * Update to Ace v1.6.0
 * Fixed Ace keybinding file not found error
 
