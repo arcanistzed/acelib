@@ -1,5 +1,5 @@
-# Update Ace editor with newest upstream release
-name: Update Ace from upstream
+# Update Ace editor with newest release
+name: Update Ace
 
 on:
   # Allows you to run this workflow manually from the Actions tab
@@ -13,27 +13,23 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v3
         with:
-          path: main
+          path: acelib
       
-      - name: Checkout upstream repo
+      - name: Checkout ace-builds repo
         uses: actions/checkout@v3
         with:
-          repository: ajaxorg/ace
-          path: upstream
+          repository: ajaxorg/ace-builds
+          path: ace-builds
           
       - name: Setup Node 16
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: Build ace
+      - name: Use new Ace files
         run: |
-          cd upstream
-          npm install
-          cd ..
-          node upstream/Makefile.dryice.js --m --nc --s --target ace-builds
-          rm -rf main/scripts/library/
-          mv ace-builds/src-min-noconflict/ main/scripts/library/
+          rm -rf acelib/scripts/library/
+          mv ace-builds/src-min-noconflict/ acelib/scripts/library/
 
       - name: Find latest upstream tag
         uses: oprypin/find-latest-tag@v1
@@ -60,7 +56,7 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           message: "chore: update ace to ${{ steps.latestUpstream.outputs.tag }}"
-          cwd: "./main"
+          cwd: "./acelib"
 
       - name: Create Release
         uses: ncipollo/release-action@v1.10.0
