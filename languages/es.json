@@ -1,0 +1,158 @@
+{
+	"acelib": {
+		"settings": {
+			"selectionStyle": {
+				"Name": "Seleccion de Estilo",
+				"Hint": "        "
+			},
+			"highlightActiveLine": {
+				"Name": "Subraya Linea Activa",
+				"Hint": "        "
+			},
+			"highlightSelectedWord": {
+				"Name": "Subraya Palabra Seleccionada",
+				"Hint": "        "
+			},
+			"cursorStyle": {
+				"Name": "Estilo de Cursor",
+				"Hint": "        "
+			},
+			"showInvisibles": {
+				"Name": "Ver Invisibles",
+				"Hint": "Muestra tabulaciones y espacios"
+			},
+			"displayIndentGuides": {
+				"Name": "Mostrar guías con sangrías",
+				"Hint": "Permite ver sangrías. Activar esto también activa la opción Ver Invisibles."
+			},
+			"navigateWithinSoftTabs": {
+				"Name": "Navegar entre pestañas",
+				"Hint": "        "
+			},
+			"enableMultiselect": {
+				"Name": "Habilitar Selección Múltiple",
+				"Hint": "        "
+			},
+			"highlightGutterLine": {
+				"Name": "Resaltar la Línea del Canal",
+				"Hint": "Permite resaltar o no la Línea actual del Canal"
+			},
+			"showPrintMargin": {
+				"Name": "Mostrar Margenes de Impresion",
+				"Hint": "¿Deseas ver los márgenes de impresión?"
+			},
+			"printMarginColumn": {
+				"Name": "Imprimir Columna de Márgenes",
+				"Hint": "¿Cuántas columnas de texto debería incluir en el margen de impresión?"
+			},
+			"showFoldWidgets": {
+				"Name": "Mostrar Artilugio de Plegado",
+				"Hint": "Estos pequeños artilugios triangulares en el Canal permiten doblar elementos"
+			},
+			"fadeFoldWidgets": {
+				"Name": "Ocultar Artilugios de Plegado",
+				"Hint": "¿Deberían desaparecer los artilugios de plegado cuando no está el cursor haciendo foco en el Canal? "
+			},
+			"showLineNumbers": {
+				"Name": "Mostrar Líneas de Numeros",
+				"Hint": "        "
+			},
+			"showGutter": {
+				"Name": "Mostrar Canal",
+				"Hint": "Esta es la barra lateral a la izquierda del editor que habitualmente contiene las líneas de números."
+			},
+			"fontSize": {
+				"Name": "Tamaño de la Fuente",
+				"Hint": "        "
+			},
+			"fontFamily": {
+				"Name": "Familia de la Fuente",
+				"Hint": "        "
+			},
+			"scrollPastEnd": {
+				"Name": "Desplazarse hasta el Final",
+				"Hint": "        "
+			},
+			"theme": {
+				"Name": "Tema",
+				"Hint": "¿Color favorito?"
+			},
+			"newLineMode": {
+				"Name": "Modo de Línea Nueva",
+				"Hint": "        "
+			},
+			"tabSize": {
+				"Name": "Tamaño de la Pestaña",
+				"Hint": "        "
+			},
+			"wrap": {
+				"Name": "Envolver Texto",
+				"Hint": "        "
+			},
+			"foldStyle": {
+				"Name": "Estilo de Doblado",
+				"Hint": "        "
+			},
+			"mode": {
+				"Name": "Modo",
+				"Hint": "¿Que estás editando?"
+			},
+			"enableBasicAutocompletion": {
+				"Name": "Permitir Autocompletar Básico",
+				"Hint": "        "
+			},
+			"enableSnippets": {
+				"Name": "Permitir Fragmentos",
+				"Hint": "        "
+			},
+			"enableLiveAutocompletion": {
+				"Name": "Permitir Autocompletar en Vivo",
+				"Hint": "        "
+			},
+			"useElasticTabstops": {
+				"Name": "Usar Tabulación Elástica",
+				"Hint": "        "
+			},
+			"keyboardHandler": {
+				"Name": "Control del Teclado",
+				"Hint": "Elegir un conjunto de Atajos de Teclado"
+			},
+			"hScrollBarAlwaysVisible": {
+				"Name": "Barra de Deslizamiento Horizontal Siempre Visible",
+				"Hint": "        "
+			},
+			"vScrollBarAlwaysVisible": {
+				"Name": "Barra de Deslizamiento Vertical Siempre Visible",
+				"Hint": "        "
+			},
+			"scrollSpeed": {
+				"Name": "Velocidad de Desplazamiento",
+				"Hint": "        "
+			},
+			"dragDelay": {
+				"Name": "Demora en Arrastrar-y-Soltar",
+				"Hint": "        "
+			},
+			"dragEnabled": {
+				"Name": "Permitir Arrastrar-y-Soltar",
+				"Hint": "        "
+			},
+			"firstLineNumber": {
+				"Name": "Número de Primera Línea",
+				"Hint": "        "
+			},
+			"overwrite": {
+				"Name": "Sobrescribir",
+				"Hint": "Permite sobrescribir el texto en lugar de insertarlo de manera normal."
+			},
+			"useSoftTabs": {
+				"Name": "Usar Tabulación Suave",
+				"Hint": "Transforma el carácter ‘tab’ en espacios"
+			},
+			"indentedSoftWrap": {
+				"Name": "Doblar Sangría",
+				"Hint": "        "
+			}
+		}
+	}
+}
