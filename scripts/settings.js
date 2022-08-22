@@ -1,4 +1,4 @@
-/** 
+/**
  * Defines a set of configuration options for Ace editors
  */
 Hooks.once("init", () => {
@@ -8,8 +8,8 @@ Hooks.once("init", () => {
 	/**
 	 * Registers a single game setting for this module.
 	 *
-	 * The settings is registered with the module's namespace, 
-	 * and the name and hint are assigned translated values 
+	 * The settings is registered with the module's namespace,
+	 * and the name and hint are assigned translated values
 	 * based on the setting name.
 	 *
 	 * All the settings are world scoped.
@@ -34,7 +34,7 @@ Hooks.once("init", () => {
 		settings.push(name);
 	}
 
-	/** 
+	/**
 	 * Add a getter to Ace that returns an object containing all the settings
 	 * from the settings array. These can be passed directly to the Ace initialization.
 	 */
