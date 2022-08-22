@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.7.0 - 21 Aug 2022
+
+Spanish localization
+Fix default settings for v10
+Update Ace editor to v1.9.6
+
+## 1.6.1 - 10 Aug 2022
+
+Update Ace editor to v1.9.5
+
 ## 1.6.0 - 8 Aug 2022
 
 Update Ace editor to v1.9.3
