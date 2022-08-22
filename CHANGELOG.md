@@ -2,7 +2,7 @@
 
 ## 1.7.0 - 21 Aug 2022
 
-Spanish localization
+Spanish localization (thanks to @ZRAAA78 (Raul)#8679)
 Fix default settings for v10
 Update Ace editor to v1.9.6
 
