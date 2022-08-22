@@ -28,7 +28,7 @@ Hooks.once("init", () => {
 			config: true,
 			type: type,
 			choices: choices,
-			default: def,
+			default: def ?? type(""),
 			config: show
 		});
 		settings.push(name);
