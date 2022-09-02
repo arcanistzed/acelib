@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.1 - 2 Sept 2022
+
+Update Ace editor to v1.10.0
+
 ## 1.7.0 - 21 Aug 2022
 
 Spanish localization (thanks to @ZRAAA78 (Raul)#8679)
