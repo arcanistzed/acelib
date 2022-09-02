@@ -39,10 +39,9 @@ jobs:
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
 
-      # Autopublish to the Foundry Admin panel
+      # Publish to the Foundry Admin panel
       - name: Publish to Foundry VTT Admin panel
         id: publish_foundry_admin
-        if: ${{ secrets.FOUNDRY_ADMIN_ID }}
         run: npx @ghost-fvtt/foundry-publish
         env:
           FVTT_MANIFEST_PATH: "module.json"
