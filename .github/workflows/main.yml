@@ -40,11 +40,12 @@ jobs:
           body: ${{ github.event.release.body }}
 
       # Autopublish to the Foundry Admin panel
-      - name: FoundryVTT AutoPublish
-        uses: Varriount/fvtt-autopublish@v1.0.6
-        with:
-          username: ${{ secrets.FOUNDRY_ADMIN_USER }}
-          password: ${{ secrets.FOUNDRY_ADMIN_PW }}
-          module-id: ${{ secrets.FOUNDRY_ADMIN_ID }}
-          manifest-url: https://github.com/${{ github.repository }}/releases/download/${{ github.event.release.tag_name }}/module.json
-          manifest-file: ./module.json
+      - name: Publish to Foundry VTT Admin panel
+        id: publish_foundry_admin
+        if: ${{ env.FOUNDRY_ADMIN_ID }}
+        run: npx @ghost-fvtt/foundry-publish
+        env:
+          FVTT_MANIFEST_PATH: "module.json"
+          FVTT_PACKAGE_ID: ${{ env.FOUNDRY_ADMIN_ID }}
+          FVTT_USERNAME: ${{ secrets.FOUNDRY_ADMIN_USER }}
+          FVTT_PASSWORD: ${{ secrets.FOUNDRY_ADMIN_PW }}
