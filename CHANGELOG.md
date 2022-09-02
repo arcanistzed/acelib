@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.8.1 - 2 Sept 2022
+## 1.8.2 - 2 Sept 2022
 
 Update Ace editor to v1.10.0
 
